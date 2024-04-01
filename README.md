@@ -1,1 +1,0 @@
-# cosmos-db-dev-guide-frontend-app
