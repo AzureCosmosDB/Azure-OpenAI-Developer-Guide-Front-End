@@ -2,8 +2,8 @@
 
 This repository is a pre-built Front End application that is shared by the following developer guides:
 
-- [Azure Cosmos DB + Azure OpenAI Node.js Developer Guide](https://github.com/AzureCosmosDB/Azure-OpenAI-Python-Developer-Guide)
-- [Azure Cosmos DB + Azure OpenAI Python Developer Guide](https://github.com/AzureCosmosDB/Azure-OpenAI-Node.js-Developer-Guide)
+- [Azure Cosmos DB + Azure OpenAI Node.js Developer Guide](https://github.com/AzureCosmosDB/Azure-OpenAI-Node.js-Developer-Guide)
+- [Azure Cosmos DB + Azure OpenAI Python Developer Guide](https://github.com/AzureCosmosDB/Azure-OpenAI-Python-Developer-Guide)
 
 ## Contributing
 
