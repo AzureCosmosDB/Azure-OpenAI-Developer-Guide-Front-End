@@ -1,14 +1,9 @@
-# Project
+# Azure Cosmos DB + Azure OpenAI Developer Guide Front End Application
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+This repository is a pre-built Front End application that is shared by the following developer guides:
 
-As the maintainer of this project, please make a few updates:
-
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+- [Azure Cosmos DB + Azure OpenAI Node.js Developer Guide](https://github.com/AzureCosmosDB/Azure-OpenAI-Python-Developer-Guide)
+- [Azure Cosmos DB + Azure OpenAI Python Developer Guide](https://github.com/AzureCosmosDB/Azure-OpenAI-Node.js-Developer-Guide)
 
 ## Contributing
 
