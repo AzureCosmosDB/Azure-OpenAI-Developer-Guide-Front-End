@@ -16,7 +16,7 @@ const Layout = () => {
                         <ul className={styles.headerNavList}>
                             
                             <li className={styles.headerNavLeftMargin}>
-                                <a href="https://github.com/cosmosdb" target={"_blank"} title="Github repository link">
+                                <a href="https://github.com/AzureCosmosDB/Azure-OpenAI-Developer-Guide-Front-End" target={"_blank"} title="Github repository link">
                                     <img
                                         src={github}
                                         alt="Github logo"
