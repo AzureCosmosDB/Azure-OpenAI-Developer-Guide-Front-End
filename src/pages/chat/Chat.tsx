@@ -7,6 +7,8 @@ import styles from "./Chat.module.css";
 
 import {
     chatApi,
+    getSessions,
+    getSessionHistory,
     RetrievalMode,
     ChatAppResponse,
     ChatAppResponseOrError,
@@ -53,6 +55,8 @@ const Chat = () => {
     const [showGPT4VOptions, setShowGPT4VOptions] = useState<boolean>(false);
 
     const [sessionId, setSessionId] = useState<string>("1234");
+    const [sessions, setSessions] = useState<{ session_id: string; title: string }[]>([]);
+    const [hasSessions, setHasSessions] = useState<boolean>(false); // Track if sessions are available
 
     const makeApiRequest = async (question: string) => {
         lastQuestionRef.current = question;
@@ -97,6 +101,29 @@ const Chat = () => {
             setIsLoading(false);
         }
     };
+
+    // Function to load sessions from the API
+    const loadSessions = async () => {
+        try {
+            const sessionsResponse = await getSessions(); // Call the getSessions API function
+            setSessions(sessionsResponse.sessions);
+            setHasSessions(sessionsResponse.sessions.length > 0); // Update state based on whether sessions exist
+        } catch (err) {
+            console.error("Failed to load sessions:", err);
+            setHasSessions(false); // Update state to indicate that no sessions are available
+        }
+    };
+
+    // Load sessions when component mounts
+    useEffect(() => {
+        loadSessions();
+    }, []);
+
+    useEffect(() => {
+        if (sessionId) {
+            getSessionHistory(sessionId);
+        }
+    }, [sessionId]);
 
     const clearChat = () => {
         lastQuestionRef.current = "";
@@ -167,11 +194,29 @@ const Chat = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.commandsContainer}>
-                <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
-            </div>
+            
             <div className={styles.chatRoot}>
+                {/* Render chat session container only if there are sessions to display */}
+                {hasSessions && (
+                <div className={styles.chatSessionContainer}>
+                    <h3>Previous Sessions</h3>
+                    <ul>
+                        {sessions.map((session) => (
+                            <li key={session.session_id}>
+                                <span>{session.title}</span>
+                                <DefaultButton
+                                    text="Load Session"
+                                    onClick={() => setSessionId(session.session_id)}
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                )}
                 <div className={styles.chatContainer}>
+                    <div className={styles.commandsContainer}>
+                        <ClearChatButton className={styles.commandButton} onClick={clearChat} disabled={!lastQuestionRef.current || isLoading} />
+                    </div>
                     {!lastQuestionRef.current ? (
                         <div className={styles.chatEmptyState}>
                             <SparkleFilled fontSize={"120px"} primaryFill={"rgba(115, 118, 225, 1)"} aria-hidden="true" aria-label="Chat logo" />
