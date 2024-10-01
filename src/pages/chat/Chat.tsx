@@ -52,6 +52,8 @@ const Chat = () => {
     const [answers, setAnswers] = useState<[user: string, response: ChatAppResponse][]>([]);
     const [showGPT4VOptions, setShowGPT4VOptions] = useState<boolean>(false);
 
+    const [sessionId, setSessionId] = useState<string>("1234");
+
     const makeApiRequest = async (question: string) => {
         lastQuestionRef.current = question;
 
@@ -62,7 +64,7 @@ const Chat = () => {
         try {
             const request: ChatAppRequest = {
                 prompt: question,
-                session_id: "1234" // TODO: Need to generate a session id
+                session_id: sessionId
             };
 
             const response = await chatApi(request);
@@ -75,6 +77,7 @@ const Chat = () => {
                 setError(bodyText);
             } else {
                 const parsedResponse: ChatAppResponse = await response.json();
+                setSessionId(parsedResponse.session_id || sessionId);
                 setAnswers([...answers, [question, parsedResponse]]);
             }
             // if (shouldStream) {
