@@ -105,6 +105,7 @@ const Chat = () => {
         setAnswers([]);
         setIsLoading(false);
         setIsStreaming(false);
+        setSessionId("1234");
     };
 
     useEffect(() => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }), [isLoading]);
