@@ -112,12 +112,16 @@ const Chat = () => {
             console.error("Failed to load sessions:", err);
             setHasSessions(false); // Update state to indicate that no sessions are available
         }
+        setIsLoading
     };
 
     // Load sessions when component mounts
     useEffect(() => {
         loadSessions();
     }, []);
+    useEffect(() => {
+        loadSessions();
+    }, [answers]);
 
     useEffect(() => {
         const fetchSessionHistory = async () => {
@@ -127,11 +131,22 @@ const Chat = () => {
                 setActiveCitation(undefined);
 
                 const session = await getSessionHistory(sessionId);
-                const sessionAnswers: [string, ChatAppResponse][] = session.history.map((chat) => [chat.role, { message: chat.content, session_id: sessionId } as ChatAppResponse]);
                 
+                var answerHistory = [];
+                for (var i = 0; i < session.history.length; i = i + 2) {
+                    if (i < session.history.length - 1) {
+                        const question = '' + session.history[i].content;
+                        const response = '' + session.history[i + 1].content;
+                        answerHistory.push([question, { message: response, session_id: sessionId } as ChatAppResponse]);
+                    }
+                }
+
                 setSessionId(sessionId);
-                setAnswers(sessionAnswers);
+                setAnswers(answerHistory);
+                
                 setIsLoading(false);
+
+                lastQuestionRef.current = session.history[session.history.length - 1].content; //sessionAnswers[sessionAnswers.length - 1][1].message;
             }
         };
 
@@ -216,11 +231,7 @@ const Chat = () => {
                     <ul>
                         {sessions.map((session) => (
                             <li key={session.session_id}>
-                                <span>{session.title}</span>
-                                <DefaultButton
-                                    text="Load Session"
-                                    onClick={() => setSessionId(session.session_id)}
-                                />
+                                <a href="#" onClick={() => setSessionId(session.session_id)}>{session.title}</a>
                             </li>
                         ))}
                     </ul>
