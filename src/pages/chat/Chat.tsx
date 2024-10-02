@@ -122,11 +122,14 @@ const Chat = () => {
     useEffect(() => {
         const fetchSessionHistory = async () => {
             if (sessionId) {
-                setIsStreaming(false);
+                error && setError(undefined);
                 setIsLoading(true);
+                setActiveCitation(undefined);
+
                 const session = await getSessionHistory(sessionId);
                 const sessionAnswers: [string, ChatAppResponse][] = session.history.map((chat) => [chat.role, { message: chat.content, session_id: sessionId } as ChatAppResponse]);
-                console.log(sessionAnswers);    
+                
+                setSessionId(sessionId);
                 setAnswers(sessionAnswers);
                 setIsLoading(false);
             }
