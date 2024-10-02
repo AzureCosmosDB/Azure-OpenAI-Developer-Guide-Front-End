@@ -106,8 +106,8 @@ const Chat = () => {
     const loadSessions = async () => {
         try {
             const sessionsResponse = await getSessions(); // Call the getSessions API function
-            setSessions(sessionsResponse.sessions);
-            setHasSessions(sessionsResponse.sessions.length > 0); // Update state based on whether sessions exist
+            setSessions(sessionsResponse);
+            setHasSessions(sessionsResponse && sessionsResponse.length > 0); // Update state based on whether sessions exist
         } catch (err) {
             console.error("Failed to load sessions:", err);
             setHasSessions(false); // Update state to indicate that no sessions are available
@@ -120,9 +120,19 @@ const Chat = () => {
     }, []);
 
     useEffect(() => {
-        if (sessionId) {
-            getSessionHistory(sessionId);
-        }
+        const fetchSessionHistory = async () => {
+            if (sessionId) {
+                setIsStreaming(false);
+                setIsLoading(true);
+                const session = await getSessionHistory(sessionId);
+                const sessionAnswers: [string, ChatAppResponse][] = session.history.map((chat) => [chat.role, { message: chat.content, session_id: sessionId } as ChatAppResponse]);
+                console.log(sessionAnswers);    
+                setAnswers(sessionAnswers);
+                setIsLoading(false);
+            }
+        };
+
+        fetchSessionHistory();
     }, [sessionId]);
 
     const clearChat = () => {
