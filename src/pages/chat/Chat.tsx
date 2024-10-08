@@ -142,7 +142,7 @@ const Chat = () => {
                                     answerHistory.push([question, { message: response, session_id: sessionId } as ChatAppResponse]);
                                 }
                             }
-                            
+
                             lastQuestionRef.current = session.history[session.history.length - 1].content; //sessionAnswers[sessionAnswers.length - 1][1].message;
                         }
 
@@ -238,7 +238,11 @@ const Chat = () => {
                     <ul>
                         {sessions.map((session) => (
                             <li key={session.session_id}>
+                                {session.session_id !== sessionId ? (
                                 <a href="#" onClick={() => setSessionId(session.session_id)}>{session.title}</a>
+                                ) : (
+                                <span>{session.title}</span>
+                                )}
                             </li>
                         ))}
                     </ul>
