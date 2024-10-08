@@ -26,7 +26,7 @@ export const getSessions = async (): Promise<{ session_id: string; title: string
     const response = await fetch(`${BACKEND_URI}/session/list`); // Update this to match your API endpoint
     if (!response.ok) {
         if (response.status === 404) {
-            console.log("API doesn't support Chat Session functionality.")
+            console.log("FYI, API doesn't support Chat Session functionality.")
             return [];
         }
         throw new Error(`Failed to fetch sessions: ${response.statusText}`);
