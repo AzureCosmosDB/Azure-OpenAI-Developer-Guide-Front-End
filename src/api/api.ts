@@ -41,10 +41,6 @@ export const getSessionHistory = async (sessionId: string): Promise<{ history: {
             headers: { "Content-Type": "application/json" }
         });
 
-        if (response.status === 404) {
-            return { history: [] };
-        }
-
         if (!response.ok) {
             throw new Error(`Failed to fetch session history: ${response.statusText}`);
         }
