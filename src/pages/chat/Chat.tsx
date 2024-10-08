@@ -240,14 +240,16 @@ const Chat = () => {
                             <i>No chat history yet.</i>
                         )}
                         {sessions && sessions.map((session) => (
-                            <li key={session.session_id}>
+                            session.session_id !== "1234" && (
+                                <li key={session.session_id}>
                                 {session.session_id !== sessionId ? (
-                                <a href="#" onClick={() => { setSessionId(session.session_id) }}>{session.title}</a>
+                                    <a href="#" onClick={() => setSessionId(session.session_id)}>{session.title}</a>
                                 ) : (
-                                <span>{session.title}</span>
+                                    <span>{session.title}</span>
                                 )}
-                            </li>
-                        ))}
+                                </li>
+                            )
+                            ))}
                     </ul>
                 </div>
                 )}
