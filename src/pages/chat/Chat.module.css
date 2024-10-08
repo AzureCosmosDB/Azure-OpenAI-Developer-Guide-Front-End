@@ -6,16 +6,38 @@
 }
 
 .chatRoot {
-    flex: 1;
+    flex: 2;
     display: flex;
 }
 
 .chatContainer {
-    flex: 1;
+    flex: 4;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 85%;
+}
+
+.chatSessionContainer {
+    background: #f2f2f2;
+    color: #222222;
+    border-right: solid 0.1em #858585;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    padding: 1em;
+}
+.chatSessionContainer ul {
+    list-style-type: none;
+    padding: 0;
+}
+.chatSessionContainer ul li {
+    margin-bottom: 1em;
+}
+
+.chatSessionContainer ul li span {
+    font-weight: 600;
 }
 
 .chatEmptyState {

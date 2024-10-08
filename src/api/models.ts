@@ -65,6 +65,7 @@ export type ChatAppResponseOrError = {
 
 export type ChatAppResponse = {
     message: string;
+    session_id: string | null;
 };
 
 export type ChatAppRequestContext = {
