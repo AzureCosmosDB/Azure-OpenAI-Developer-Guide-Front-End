@@ -36,6 +36,10 @@
     margin-bottom: 1em;
 }
 
+.chatSessionContainer ul li span {
+    font-weight: 600;
+}
+
 .chatEmptyState {
     flex-grow: 1;
     display: flex;

@@ -107,10 +107,10 @@ const Chat = () => {
         try {
             const sessionsResponse = await getSessions(); // Call the getSessions API function
             setSessions(sessionsResponse);
-            setHasSessions(sessionsResponse && sessionsResponse.length > 0); // Update state based on whether sessions exist
+            setHasSessions(true);
         } catch (err) {
-            console.log("Failed to load sessions:", err);
-            setHasSessions(false); // Update state to indicate that no sessions are available
+            console.log("Failed to load sessions");
+            setHasSessions(false);
         }
         setIsLoading
     };
@@ -232,14 +232,17 @@ const Chat = () => {
             
             <div className={styles.chatRoot}>
                 {/* Render chat session container only if there are sessions to display */}
-                {hasSessions && (
+                {hasSessions && sessions && (
                 <div className={styles.chatSessionContainer}>
-                    <h3>Previous Sessions</h3>
+                    <h3>Chat Sessions</h3>
                     <ul>
-                        {sessions.map((session) => (
+                        {sessions && sessions.length === 0 && (
+                            <i>No chat history yet.</i>
+                        )}
+                        {sessions && sessions.map((session) => (
                             <li key={session.session_id}>
                                 {session.session_id !== sessionId ? (
-                                <a href="#" onClick={() => setSessionId(session.session_id)}>{session.title}</a>
+                                <a href="#" onClick={() => { setSessionId(session.session_id) }}>{session.title}</a>
                                 ) : (
                                 <span>{session.title}</span>
                                 )}
