@@ -109,7 +109,7 @@ const Chat = () => {
             setSessions(sessionsResponse);
             setHasSessions(sessionsResponse && sessionsResponse.length > 0); // Update state based on whether sessions exist
         } catch (err) {
-            console.error("Failed to load sessions:", err);
+            console.log("Failed to load sessions:", err);
             setHasSessions(false); // Update state to indicate that no sessions are available
         }
         setIsLoading
@@ -133,11 +133,13 @@ const Chat = () => {
                 const session = await getSessionHistory(sessionId);
                 
                 var answerHistory = [];
-                for (var i = 0; i < session.history.length; i = i + 2) {
-                    if (i < session.history.length - 1) {
-                        const question = '' + session.history[i].content;
-                        const response = '' + session.history[i + 1].content;
-                        answerHistory.push([question, { message: response, session_id: sessionId } as ChatAppResponse]);
+                if (session.history) {
+                    for (var i = 0; i < session.history.length; i = i + 2) {
+                        if (i < session.history.length - 1) {
+                            const question = '' + session.history[i].content;
+                            const response = '' + session.history[i + 1].content;
+                            answerHistory.push([question, { message: response, session_id: sessionId } as ChatAppResponse]);
+                        }
                     }
                 }
 
